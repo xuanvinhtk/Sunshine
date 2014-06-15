@@ -198,9 +198,11 @@ public class ForecastFragment extends Fragment implements LoaderCallbacks<Cursor
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        updateWeather();
+    public void onResume() {
+        super.onResume();
+        if (mLocation != null && !mLocation.equals(Utility.getPreferredLocation(getActivity()))) {
+            getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+        }
     }
 
     @Override
